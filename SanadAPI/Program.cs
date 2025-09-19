@@ -15,11 +15,11 @@ namespace SanadAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
-            builder.Services.AddDbContext<DbEntity>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
 
-           
+            builder.Services.AddDbContext<DbEntity>(options =>
+              options.UseNpgsql(builder.Configuration.GetConnectionString("cs")));
+
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -71,6 +71,13 @@ namespace SanadAPI
             });
 
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<DbEntity>();
+                db.Database.Migrate();
+            }
+
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
