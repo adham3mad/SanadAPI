@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: sanad-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: ConnectionStrings__cs
+        sync: false
+      - key: Jwt__Issuer
+        sync: false
+      - key: Jwt__Audience
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: EmailSettings__SmtpServer
+        sync: false
+      - key: EmailSettings__Port
+        sync: false
+      - key: EmailSettings__SenderName
+        sync: false
+      - key: EmailSettings__SenderEmail
+        sync: false
+      - key: EmailSettings__Username
+        sync: false
+      - key: EmailSettings__Password
+        sync: false
