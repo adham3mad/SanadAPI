@@ -12,7 +12,7 @@ using Sanad.Models.Data;
 namespace SanadAPI.Migrations
 {
     [DbContext(typeof(DbEntity))]
-    [Migration("20250917212512_init")]
+    [Migration("20250919212047_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -62,6 +62,9 @@ namespace SanadAPI.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

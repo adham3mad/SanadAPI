@@ -35,7 +35,7 @@ namespace Sanad.Controllers
             emailSettings = _emailSettings.Value;
         }
 
-        // -------------------- Register with Email Verification --------------------
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
@@ -56,7 +56,7 @@ namespace Sanad.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            // Create verification token
+           
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddHours(24);
             _verificationTokens[user.Id] = (token, expiry);
@@ -87,7 +87,7 @@ namespace Sanad.Controllers
             return Ok(new { message = "User registered successfully. Please check your email to verify your account." });
         }
 
-        // -------------------- Verify Email --------------------
+        
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmail(Guid userId, string token)
         {
@@ -109,7 +109,7 @@ namespace Sanad.Controllers
             return Ok("Email verified successfully! You can now log in.");
         }
 
-        // -------------------- Login --------------------
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
@@ -124,7 +124,7 @@ namespace Sanad.Controllers
             return Ok(new { token });
         }
 
-        // -------------------- Forget Password --------------------
+        
         [HttpPost("forget-password")]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO dto)
         {
@@ -162,7 +162,7 @@ namespace Sanad.Controllers
             return Ok("Password reset link has been sent to your email (valid 15 minutes)");
         }
 
-        // -------------------- Reset Password --------------------
+
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
         {
@@ -183,7 +183,7 @@ namespace Sanad.Controllers
             return Ok("Password has been reset successfully");
         }
 
-        // -------------------- JWT Token Generator --------------------
+
         private string GenerateJwtToken(User user)
         {
             var claims = new[]

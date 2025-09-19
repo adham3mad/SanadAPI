@@ -20,7 +20,8 @@ namespace SanadAPI.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "User")
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "User"),
+                    IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
