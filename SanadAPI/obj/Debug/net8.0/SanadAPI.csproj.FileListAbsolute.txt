@@ -264,3 +264,5 @@ F:\SanadAPI\SanadAPI\bin\Debug\net8.0\MailKit.dll
 F:\SanadAPI\SanadAPI\bin\Debug\net8.0\MimeKit.dll
 F:\SanadAPI\SanadAPI\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 F:\SanadAPI\SanadAPI\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+F:\SanadAPI\SanadAPI\bin\Debug\net8.0\Npgsql.dll
+F:\SanadAPI\SanadAPI\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
