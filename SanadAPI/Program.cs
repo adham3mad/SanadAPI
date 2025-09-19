@@ -15,10 +15,8 @@ namespace SanadAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
             builder.Services.AddDbContext<DbEntity>(options =>
-              options.UseNpgsql(builder.Configuration.GetConnectionString("cs")));
-
+                options.UseNpgsql(builder.Configuration.GetConnectionString("cs")));
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -36,13 +34,24 @@ namespace SanadAPI
                     };
                 });
 
-
             builder.Services.Configure<EmailSettings>(
                 builder.Configuration.GetSection("EmailSettings"));
 
-
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
+
+            // Add CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -71,12 +80,14 @@ namespace SanadAPI
             });
 
             var app = builder.Build();
+
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<DbEntity>();
                 db.Database.Migrate();
             }
 
+            app.UseCors("AllowAll");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -90,6 +101,7 @@ namespace SanadAPI
             app.UseAuthorization();
 
             app.MapControllers();
+
             var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
             app.Urls.Add($"http://*:{port}");
 
