@@ -9,7 +9,6 @@ namespace SanadAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ConversationsController : ControllerBase
     {
         private readonly DbEntity context;
@@ -56,12 +55,6 @@ namespace SanadAPI.Controllers
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<ConversationDto>>> GetUserConversations(Guid userId)
         {
-            var currentUserId = GetCurrentUserId();
-            var currentRole = GetCurrentUserRole();
-
-            if (currentRole != "Admin" && userId != currentUserId)
-                return Forbid();
-
             var conversations = await context.Conversations
                 .Where(c => c.User_Id == userId)
                 .Include(c => c.Messages)
@@ -89,8 +82,6 @@ namespace SanadAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConversation(int id) 
         {
-            var currentUserId = GetCurrentUserId();
-            var currentRole = GetCurrentUserRole();
 
             var conv = await context.Conversations
                 .Include(c => c.Messages)

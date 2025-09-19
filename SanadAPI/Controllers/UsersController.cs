@@ -9,7 +9,6 @@ namespace SanadAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly DbEntity context;
@@ -27,8 +26,7 @@ namespace SanadAPI.Controllers
         {
             var currentRole = GetCurrentUserRole();
 
-            if (currentRole != "Admin")
-                return Forbid();
+            
 
             var users = await context.Users
                 .Include(u => u.Conversations)
@@ -60,12 +58,7 @@ namespace SanadAPI.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
-        {
-            var currentUserId = GetCurrentUserId();
-            var currentRole = GetCurrentUserRole();
-
-            if (currentRole != "Admin" && id != currentUserId)
-                return Forbid();
+        {            
 
             var user = await context.Users
                 .Include(u => u.Conversations)
@@ -101,10 +94,7 @@ namespace SanadAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto dto)
         {
-            var currentRole = GetCurrentUserRole();
-
-            if (currentRole != "Admin")
-                return Forbid();
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var user = new User
             {
@@ -134,12 +124,7 @@ namespace SanadAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, UpdateUserDto dto)
         {
-            var currentUserId = GetCurrentUserId();
-            var currentRole = GetCurrentUserRole();
-
-            if (currentRole != "Admin" && id != currentUserId)
-                return Forbid();
-
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             var user = await context.Users.FindAsync(id);
             if (user == null) return NotFound();
             if (!string.IsNullOrWhiteSpace(dto.Name))
@@ -166,12 +151,7 @@ namespace SanadAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var currentUserId = GetCurrentUserId();
-            var currentRole = GetCurrentUserRole();
-
-            if (currentRole != "Admin" && id != currentUserId)
-                return Forbid();
-
+            
             var user = await context.Users
                 .Include(u => u.Conversations)
                 .ThenInclude(c => c.Messages)

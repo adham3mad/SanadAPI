@@ -56,7 +56,6 @@ namespace Sanad.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-           
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddHours(24);
             _verificationTokens[user.Id] = (token, expiry);
