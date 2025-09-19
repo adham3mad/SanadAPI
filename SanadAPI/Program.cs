@@ -15,10 +15,11 @@ namespace SanadAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Database
             builder.Services.AddDbContext<DbEntity>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
 
-
+            // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -31,11 +32,15 @@ namespace SanadAPI
                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
                         ValidAudience = builder.Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) 
+                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                     };
                 });
+
+            // Email Settings
             builder.Services.Configure<EmailSettings>(
-            builder.Configuration.GetSection("EmailSettings"));
+                builder.Configuration.GetSection("EmailSettings"));
+
+            // Controllers & Swagger
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
             builder.Services.AddEndpointsApiExplorer();
@@ -67,6 +72,7 @@ namespace SanadAPI
 
             var app = builder.Build();
 
+            // Swagger UI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -75,10 +81,14 @@ namespace SanadAPI
 
             app.UseHttpsRedirection();
 
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
+
+            // ✅ Listen on Railway PORT or fallback 5000
+            var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+            app.Urls.Add($"http://*:{port}");
 
             app.Run();
         }
