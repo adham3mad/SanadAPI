@@ -263,3 +263,5 @@ F:\SanadAPI\SanadAPI\obj\Release\net8.0\refint\SanadAPI.dll
 F:\SanadAPI\SanadAPI\obj\Release\net8.0\SanadAPI.pdb
 F:\SanadAPI\SanadAPI\obj\Release\net8.0\SanadAPI.genruntimeconfig.cache
 F:\SanadAPI\SanadAPI\obj\Release\net8.0\ref\SanadAPI.dll
+F:\SanadAPI\sanadAPI\bin\Release\net8.0\Npgsql.dll
+F:\SanadAPI\sanadAPI\bin\Release\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

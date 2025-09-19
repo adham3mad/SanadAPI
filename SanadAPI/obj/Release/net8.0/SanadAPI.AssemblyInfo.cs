@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SanadAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d5276ee91ae5b0c23ee71606b218310aca9240e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8b7396f1d753453b3284e2de6fc21373d88027e")]
 [assembly: System.Reflection.AssemblyProductAttribute("SanadAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SanadAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -88,8 +88,7 @@ namespace SanadAPI.Controllers
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (conv == null) return NotFound();
-            if (currentRole != "Admin" && conv.User_Id != currentUserId)
-                return Forbid();
+
 
             context.Messages.RemoveRange(conv.Messages);
             context.Conversations.Remove(conv);

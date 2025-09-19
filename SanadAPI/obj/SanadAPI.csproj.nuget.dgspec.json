@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj": {}
+    "F:\\SanadAPI\\sanadAPI\\SanadAPI.csproj": {}
   },
   "projects": {
-    "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj": {
+    "F:\\SanadAPI\\sanadAPI\\SanadAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
+        "projectUniqueName": "F:\\SanadAPI\\sanadAPI\\SanadAPI.csproj",
         "projectName": "SanadAPI",
-        "projectPath": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
+        "projectPath": "F:\\SanadAPI\\sanadAPI\\SanadAPI.csproj",
         "packagesPath": "C:\\Users\\Adham\\.nuget\\packages\\",
-        "outputPath": "F:\\SanadAPI\\SanadAPI\\obj\\",
+        "outputPath": "F:\\SanadAPI\\sanadAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
