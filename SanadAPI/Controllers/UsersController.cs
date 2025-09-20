@@ -194,22 +194,27 @@ namespace SanadAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            
             var user = await context.Users
                 .Include(u => u.Conversations)
                 .ThenInclude(c => c.Messages)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null) return NotFound();
-
-            foreach (var conv in user.Conversations)
-                context.Messages.RemoveRange(conv.Messages);
-
+            context.Messages.RemoveRange(user.Conversations.SelectMany(c => c.Messages));
             context.Conversations.RemoveRange(user.Conversations);
             context.Users.Remove(user);
 
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
             return NoContent();
         }
+
     }
 }
