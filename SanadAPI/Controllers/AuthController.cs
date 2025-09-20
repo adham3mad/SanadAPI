@@ -97,7 +97,20 @@ namespace Sanad.Controllers
             try
             {
                 var user = await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-                if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                if (user == null)
+                    return Unauthorized("Invalid credentials");
+
+                bool isPasswordValid = false;
+                try
+                {
+                    isPasswordValid = BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"BCrypt verification failed: {ex.Message}");
+                }
+
+                if (!isPasswordValid)
                     return Unauthorized("Invalid credentials");
 
                 if (!user.IsEmailConfirmed)
@@ -108,7 +121,7 @@ namespace Sanad.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Login failed: {ex.Message}");
+                return StatusCode(500, $"Login failed: {ex.ToString()}");
             }
         }
 
