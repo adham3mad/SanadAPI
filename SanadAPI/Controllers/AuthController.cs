@@ -139,7 +139,7 @@ namespace Sanad.Controllers
                 Console.WriteLine(ex.ToString()); 
                 return StatusCode(500, ex.Message);
             }
-            
+            }
         }
 
         [HttpPost("forget-password")]
