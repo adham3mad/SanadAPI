@@ -122,6 +122,7 @@ namespace Sanad.Controllers
 
             user.IsEmailConfirmed = true;
 <<<<<<< HEAD
+<<<<<<< HEAD
             await context.SaveChangesAsync();
 =======
             try
@@ -136,6 +137,9 @@ namespace Sanad.Controllers
             }
 
 >>>>>>> parent of c3553dd (Update AuthController.cs)
+=======
+            await context.SaveChangesAsync();
+>>>>>>> parent of c618bc1 (edit)
 
 <<<<<<< HEAD
             _verificationTokens.Remove(userId);
