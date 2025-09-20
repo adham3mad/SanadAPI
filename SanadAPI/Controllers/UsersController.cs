@@ -200,6 +200,7 @@ namespace SanadAPI.Controllers
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null) return NotFound();
+
             context.Messages.RemoveRange(user.Conversations.SelectMany(c => c.Messages));
             context.Conversations.RemoveRange(user.Conversations);
             context.Users.Remove(user);
@@ -208,13 +209,13 @@ namespace SanadAPI.Controllers
             {
                 await context.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
+            catch (Exception ex){
+                return StatusCode(500, ex.ToString());
             }
 
             return NoContent();
         }
+
 
     }
 }
