@@ -138,7 +138,7 @@ namespace Sanad.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
                 return StatusCode(500, ex.Message);
             }
 
@@ -165,10 +165,7 @@ namespace Sanad.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Login failed exception:");
-                Console.WriteLine(ex.ToString()); 
-                return StatusCode(500, ex.Message);
-            }
+                return StatusCode(500, $"Login failed: {ex.Message}");
             }
         }
 
