@@ -1,14 +1,10 @@
-# Ignore Visual Studio temporary files, build results, and cache
+# أضف الملفات والمجلدات للـ .gitignore
+@"
 .vs/
 bin/
 obj/
-*.user
 *.suo
+*.user
+*.pdb
 *.cache
-*.log
-*.vsidx
-*.db
-.idea/
-node_modules/
-*.iml
-publish/
+"@ | Out-File -Encoding UTF8 -Append .gitignore

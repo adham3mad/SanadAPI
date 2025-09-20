@@ -123,17 +123,9 @@ namespace SanadAPI.Controllers
             };
 
             context.Users.Add(user);
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
-                return StatusCode(500, ex.Message);
-            }
+            await context.SaveChangesAsync();
 
+            // إرسال إيميل التحقق مع try/catch
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             _verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
             var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
@@ -228,17 +220,7 @@ namespace SanadAPI.Controllers
             if (!string.IsNullOrWhiteSpace(dto.Role))
                 user.Role = dto.Role;
 
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-                catch (Exception ex)
-            {
-                Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
-                return StatusCode(500, ex.Message);
-            }
-
+            await context.SaveChangesAsync();
             return NoContent();
         }
 
@@ -271,11 +253,8 @@ namespace SanadAPI.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, $"Cannot delete user: {ex.Message}");
             }
-
 
             return NoContent();
         }

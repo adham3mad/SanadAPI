@@ -44,17 +44,7 @@ namespace SanadAPI.Controllers
             };
 
             context.Messages.Add(message);
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
-                return StatusCode(500, ex.Message);
-            }
-
+            await context.SaveChangesAsync();
 
             return new MessageDto
             {

@@ -41,17 +41,7 @@ namespace SanadAPI.Controllers
             };
 
             context.Conversations.Add(conversation);
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
-                return StatusCode(500, ex.Message);
-            }
-
+            await context.SaveChangesAsync();
 
             return new ConversationDto
             {
@@ -102,18 +92,8 @@ namespace SanadAPI.Controllers
 
             context.Messages.RemoveRange(conv.Messages);
             context.Conversations.Remove(conv);
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("SaveChangesAsync failed:");
-                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
-                return StatusCode(500, ex.Message);
-            }
-
-                        return NoContent();
-                    }
-                }
-            }
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+    }
+}
