@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -55,11 +54,12 @@ namespace Sanad.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
+            // إنشاء توكن للتحقق من الإيميل
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddHours(24);
             _verificationTokens[user.Id] = (token, expiry);
 
-            var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/{user.Id}&token={token}";
+            var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/?userId={user.Id}&token={token}";
 
             await SendEmailAsync(
                 user.Email,
@@ -187,11 +187,19 @@ namespace Sanad.Controllers
         private async Task SendEmailAsync(string toEmail, string toName, string subject, string htmlContent)
         {
             var client = new SendGridClient(emailSettings.ApiKey);
-            var from = new EmailAddress(emailSettings.SenderEmail, emailSettings.SenderName);
-            var to = new EmailAddress(toEmail, toName);
 
+            var from = new EmailAddress(emailSettings.SenderEmail, emailSettings.SenderName);
+
+            var to = new EmailAddress(toEmail, toName);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent: "", htmlContent: htmlContent);
-            await client.SendEmailAsync(msg);
+
+            var response = await client.SendEmailAsync(msg);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var body = await response.Body.ReadAsStringAsync();
+                throw new Exception($"SendGrid failed: {response.StatusCode}, {body}");
+            }
         }
     }
 }
