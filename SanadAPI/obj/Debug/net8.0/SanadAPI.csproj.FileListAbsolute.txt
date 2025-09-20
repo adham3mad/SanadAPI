@@ -266,3 +266,5 @@ F:\SanadAPI\SanadAPI\obj\Debug\net8.0\refint\SanadAPI.dll
 F:\SanadAPI\SanadAPI\obj\Debug\net8.0\SanadAPI.pdb
 F:\SanadAPI\SanadAPI\obj\Debug\net8.0\SanadAPI.genruntimeconfig.cache
 F:\SanadAPI\SanadAPI\obj\Debug\net8.0\ref\SanadAPI.dll
+F:\SanadAPI\SanadAPI\bin\Debug\net8.0\SendGrid.dll
+F:\SanadAPI\SanadAPI\bin\Debug\net8.0\StarkbankEcdsa.dll

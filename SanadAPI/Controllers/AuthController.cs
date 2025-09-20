@@ -25,13 +25,15 @@ namespace Sanad.Controllers
         private readonly DbEntity context;
         private readonly IConfiguration config;
         private readonly EmailSettings emailSettings;
-        private static Dictionary<Guid, (string Token, DateTime Expiry)> _verificationTokens = new();
+        private readonly IEmailService emailService;
+        private static Dictionary<Guid, (string Token, DateTime Expiry)> verificationTokens = new();
 
-        public AuthController(DbEntity _context, IConfiguration _config, IOptions<EmailSettings> _emailSettings)
+        public AuthController(DbEntity _context, IConfiguration _config, IOptions<EmailSettings> _emailSettings, IEmailService _emailService)
         {
             context = _context;
             config = _config;
             emailSettings = _emailSettings.Value;
+            emailService = _emailService;
         }
 
         [HttpPost("register")]
@@ -56,11 +58,11 @@ namespace Sanad.Controllers
 
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddHours(24);
-            _verificationTokens[user.Id] = (token, expiry);
+            verificationTokens[user.Id] = (token, expiry);
 
             var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/?userId={user.Id}&token={token}";
 
-            await SendEmailAsync(
+            await emailService.SendEmailAsync(
                 user.Email,
                 user.Name,
                 "Verify your email",
@@ -78,10 +80,10 @@ namespace Sanad.Controllers
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmail(Guid userId, string token)
         {
-            if (!_verificationTokens.ContainsKey(userId))
+            if (!verificationTokens.ContainsKey(userId))
                 return BadRequest("Invalid or expired token");
 
-            var (savedToken, expiry) = _verificationTokens[userId];
+            var (savedToken, expiry) = verificationTokens[userId];
             if (savedToken != token || expiry < DateTime.UtcNow)
                 return BadRequest("Invalid or expired token");
 
@@ -91,7 +93,7 @@ namespace Sanad.Controllers
             user.IsEmailConfirmed = true;
             await context.SaveChangesAsync();
 
-            _verificationTokens.Remove(userId);
+            verificationTokens.Remove(userId);
 
             return Ok("Email verified successfully! You can now log in.");
         }
@@ -126,11 +128,11 @@ namespace Sanad.Controllers
 
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddMinutes(15);
-            _verificationTokens[user.Id] = (token, expiry);
+            verificationTokens[user.Id] = (token, expiry);
 
             var resetLink = $"https://adham3mad.github.io/Reset-Password-Sanad?userId={user.Id}&token={token}";
 
-            await SendEmailAsync(
+            await emailService.SendEmailAsync(
                 user.Email,
                 user.Name,
                 "Password Reset Request",
@@ -150,7 +152,7 @@ namespace Sanad.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
         {
-            if (!_verificationTokens.TryGetValue(dto.UserId, out var tokenData))
+            if (!verificationTokens.TryGetValue(dto.UserId, out var tokenData))
                 return BadRequest("Invalid or expired token");
 
             var (storedToken, expiry) = tokenData;
@@ -161,7 +163,7 @@ namespace Sanad.Controllers
             if (user == null) return NotFound("User not found");
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
-            _verificationTokens.Remove(dto.UserId);
+            verificationTokens.Remove(dto.UserId);
 
             await context.SaveChangesAsync();
             return Ok("Password has been reset successfully");
@@ -189,24 +191,6 @@ namespace Sanad.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private async Task SendEmailAsync(string toEmail, string toName, string subject, string htmlContent)
-        {
-            var client = new SendGridClient(emailSettings.ApiKey);
-
-            var from = new EmailAddress(emailSettings.SenderEmail, emailSettings.SenderName);
-
-            var to = new EmailAddress(toEmail, toName);
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent: "", htmlContent: htmlContent);
-
-            var response = await client.SendEmailAsync(msg);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                var body = await response.Body.ReadAsStringAsync();
-                throw new Exception($"SendGrid failed: {response.StatusCode}, {body}");
-            }
         }
     }
 }
