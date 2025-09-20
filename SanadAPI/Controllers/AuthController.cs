@@ -54,7 +54,6 @@ namespace Sanad.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
-            // إنشاء توكن للتحقق من الإيميل
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddHours(24);
             _verificationTokens[user.Id] = (token, expiry);
@@ -100,16 +99,24 @@ namespace Sanad.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
-            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
-                return Unauthorized("Invalid credentials");
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                    return Unauthorized("Invalid credentials");
 
-            if (!user.IsEmailConfirmed)
-                return Unauthorized("Please verify your email before logging in.");
+                if (!user.IsEmailConfirmed)
+                    return Unauthorized("Please verify your email before logging in.");
 
-            var token = GenerateJwtToken(user);
-            return Ok(new { token });
+                var token = GenerateJwtToken(user);
+                return Ok(new { token });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Login failed: {ex.Message}");
+            }
         }
+
 
         [HttpPost("forget-password")]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO dto)
