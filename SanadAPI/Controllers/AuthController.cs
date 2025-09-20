@@ -121,7 +121,21 @@ namespace Sanad.Controllers
             if (user == null) return NotFound("User not found");
 
             user.IsEmailConfirmed = true;
+<<<<<<< HEAD
             await context.SaveChangesAsync();
+=======
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SaveChangesAsync failed:");
+                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
+                return StatusCode(500, ex.Message);
+            }
+
+>>>>>>> parent of c3553dd (Update AuthController.cs)
 
 <<<<<<< HEAD
             _verificationTokens.Remove(userId);
