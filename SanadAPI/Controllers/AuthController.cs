@@ -123,7 +123,11 @@ namespace Sanad.Controllers
             user.IsEmailConfirmed = true;
             await context.SaveChangesAsync();
 
+<<<<<<< HEAD
             _verificationTokens.Remove(userId);
+=======
+            verificationTokens.Remove(userId);
+>>>>>>> parent of c618bc1 (edit)
 
             return Ok("Email verified successfully! You can now log in.");
         }
@@ -219,7 +223,11 @@ namespace Sanad.Controllers
             if (user == null) return NotFound("User not found");
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+<<<<<<< HEAD
             _verificationTokens.Remove(dto.UserId);
+=======
+            verificationTokens.Remove(dto.UserId);
+>>>>>>> parent of c618bc1 (edit)
 
             await context.SaveChangesAsync();
             return Ok("Password has been reset successfully");
