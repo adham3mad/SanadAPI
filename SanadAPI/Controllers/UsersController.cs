@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Sanad.DTOs;
 using Sanad.Models.Data;
 using SanadAPI.DTOs;
+<<<<<<< HEAD
 using System.Security.Cryptography;
+=======
+using System.Security.Claims;
+>>>>>>> parent of b993692 (add email verification for creat user and update user)
 
 namespace SanadAPI.Controllers
 {
@@ -13,6 +15,7 @@ namespace SanadAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DbEntity context;
+<<<<<<< HEAD
         private readonly IEmailService emailService;
         private static Dictionary<Guid, (string Token, DateTime Expiry)> _verificationTokens = new();
 
@@ -22,9 +25,24 @@ namespace SanadAPI.Controllers
             emailService = _emailService;
         }
 
+=======
+
+        public UsersController(DbEntity _context)
+        {
+            context = _context;
+        }
+
+        private Guid GetCurrentUserId() => Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
+        private string GetCurrentUserRole() => User.FindFirst(ClaimTypes.Role)?.Value ?? "";
+
+>>>>>>> parent of b993692 (add email verification for creat user and update user)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
         {
+            var currentRole = GetCurrentUserRole();
+
+            
+
             var users = await context.Users
                 .Include(u => u.Conversations)
                 .ThenInclude(c => c.Messages)
@@ -99,6 +117,7 @@ namespace SanadAPI.Controllers
                 Image = dto.Image,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash),
+<<<<<<< HEAD
                 Role = dto.Role,
                 IsEmailConfirmed = false
             };
@@ -137,6 +156,13 @@ namespace SanadAPI.Controllers
             {
                 Console.WriteLine($"Email sending failed: {ex.Message}");
             }
+=======
+                Role = dto.Role
+            };
+
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
+>>>>>>> parent of b993692 (add email verification for creat user and update user)
 
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, new UserDto
             {
@@ -149,23 +175,25 @@ namespace SanadAPI.Controllers
             });
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of b993692 (add email verification for creat user and update user)
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, UpdateUserDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
             var user = await context.Users.FindAsync(id);
             if (user == null) return NotFound();
-
             if (!string.IsNullOrWhiteSpace(dto.Name))
                 user.Name = dto.Name;
 
             if (!string.IsNullOrWhiteSpace(dto.Image))
                 user.Image = dto.Image;
 
-            if (!string.IsNullOrWhiteSpace(dto.Email) && dto.Email != user.Email)
-            {
+            if (!string.IsNullOrWhiteSpace(dto.Email))
                 user.Email = dto.Email;
+<<<<<<< HEAD
                 user.IsEmailConfirmed = false;
 
                 var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
@@ -191,6 +219,8 @@ namespace SanadAPI.Controllers
                     Console.WriteLine($"Email sending failed: {ex.Message}");
                 }
             }
+=======
+>>>>>>> parent of b993692 (add email verification for creat user and update user)
 
             if (!string.IsNullOrWhiteSpace(dto.PasswordHash))
                 user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash);
@@ -212,6 +242,11 @@ namespace SanadAPI.Controllers
             return NoContent();
         }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of b993692 (add email verification for creat user and update user)
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {

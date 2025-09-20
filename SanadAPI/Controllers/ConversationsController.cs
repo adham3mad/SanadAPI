@@ -21,6 +21,10 @@ namespace SanadAPI.Controllers
 
         private Guid GetCurrentUserId() =>
             Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString());
+
+        private string GetCurrentUserRole() =>
+            User.FindFirst(ClaimTypes.Role)?.Value ?? "";
+
         [HttpPost]
         public async Task<ActionResult<ConversationDto>> CreateConversation(string Title)
         {
