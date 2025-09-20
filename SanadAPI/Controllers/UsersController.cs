@@ -13,14 +13,12 @@ namespace SanadAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly DbEntity context;
-        private readonly EmailSettings emailSettings;
-        private static Dictionary<Guid, (string Token, DateTime Expiry)> _verificationTokens = new();
         private readonly IEmailService emailService;
+        private static Dictionary<Guid, (string Token, DateTime Expiry)> _verificationTokens = new();
 
-        public UsersController(DbEntity _context, IOptions<EmailSettings> _emailSettings, IEmailService _emailService)
+        public UsersController(DbEntity _context, IEmailService _emailService)
         {
             context = _context;
-            emailSettings = _emailSettings.Value;
             emailService = _emailService;
         }
 
@@ -108,21 +106,29 @@ namespace SanadAPI.Controllers
             context.Users.Add(user);
             await context.SaveChangesAsync();
 
+            // إرسال إيميل التحقق مع try/catch
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             _verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
-
             var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
-            await emailService.SendEmailAsync(
-                user.Email,
-                user.Name,
-                "Verify your email",
-                $@"
-                <h2>Welcome {user.Name}</h2>
-                <p>Please verify your email by clicking the link below:</p>
-                <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
-                <br/>
-                <p>This link will expire in 24 hours.</p>"
-            );
+
+            try
+            {
+                await emailService.SendEmailAsync(
+                    user.Email,
+                    user.Name,
+                    "Verify your email",
+                    $@"
+                    <h2>Welcome {user.Name}</h2>
+                    <p>Please verify your email by clicking the link below:</p>
+                    <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
+                    <br/>
+                    <p>This link will expire in 24 hours.</p>"
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Email sending failed: {ex.Message}");
+            }
 
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, new UserDto
             {
@@ -156,19 +162,26 @@ namespace SanadAPI.Controllers
 
                 var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
                 _verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
-
                 var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
-                await emailService.SendEmailAsync(
-                    user.Email,
-                    user.Name,
-                    "Verify your email",
-                    $@"
-                    <h2>Welcome {user.Name}</h2>
-                    <p>Please verify your email by clicking the link below:</p>
-                    <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
-                    <br/>
-                    <p>This link will expire in 24 hours.</p>"
-                );
+
+                try
+                {
+                    await emailService.SendEmailAsync(
+                        user.Email,
+                        user.Name,
+                        "Verify your email",
+                        $@"
+                        <h2>Welcome {user.Name}</h2>
+                        <p>Please verify your email by clicking the link below:</p>
+                        <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
+                        <br/>
+                        <p>This link will expire in 24 hours.</p>"
+                    );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Email sending failed: {ex.Message}");
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(dto.PasswordHash))
@@ -203,13 +216,9 @@ namespace SanadAPI.Controllers
             {
                 await context.SaveChangesAsync();
             }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, $"Cannot delete user due to related data: {ex.Message}");
-            }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.ToString());
+                return StatusCode(500, $"Cannot delete user: {ex.Message}");
             }
 
             return NoContent();
