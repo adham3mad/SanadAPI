@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "F:\\SanadAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\migrations\\20250920130650_edit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\migrations\\20250920130650_edit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -46,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,7 +62,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "20250920130650_edit.cs",
+              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Migrations\\20250920130650_edit.cs",
+              "RelativeDocumentMoniker": "SanadAPI\\Migrations\\20250920130650_edit.cs",
+              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Migrations\\20250920130650_edit.cs",
+              "RelativeToolTip": "SanadAPI\\Migrations\\20250920130650_edit.cs",
+              "ViewState": "AgIAAAMAAABY//////8TwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T13:06:51.425Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "SendGridEmailService.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Services\\SendGridEmailService.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Services\\SendGridEmailService.cs",
@@ -70,7 +87,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "IEmailService.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Services\\IEmailService.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Services\\IEmailService.cs",
@@ -82,7 +99,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "UsersController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\UsersController.cs",
@@ -95,7 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AuthController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\AuthController.cs",
@@ -107,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "AuthDto.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\DTOs\\AuthDto.cs",
               "RelativeDocumentMoniker": "SanadAPI\\DTOs\\AuthDto.cs",
@@ -119,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Program.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Program.cs",
@@ -131,7 +148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\appsettings.json",
               "RelativeDocumentMoniker": "SanadAPI\\appsettings.json",
@@ -143,7 +160,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ConversationsController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\ConversationsController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\ConversationsController.cs",
@@ -155,7 +172,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "SanadAPI.csproj",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
               "RelativeDocumentMoniker": "SanadAPI\\SanadAPI.csproj",

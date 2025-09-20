@@ -19,16 +19,18 @@ namespace Sanad.Models.Data
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Conversations)
                 .WithOne(c => c.User)
-                .HasForeignKey(c => c.User_Id);
+                .HasForeignKey(c => c.User_Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Conversation>()
                 .HasMany(c => c.Messages)
                 .WithOne(m => m.Conversation)
-                .HasForeignKey(m => m.Conversation_Id);
+                .HasForeignKey(m => m.Conversation_Id)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<User>()
-               .Property(u => u.Role)
-               .HasDefaultValue("User");
+                .Property(u => u.Role)
+                .HasDefaultValue("User");
         }
     }
 }

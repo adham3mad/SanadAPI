@@ -49,7 +49,17 @@ namespace Sanad.Controllers
             };
 
             context.Users.Add(user);
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SaveChangesAsync failed:");
+                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
+                return StatusCode(500, ex.Message);
+            }
+
 
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
@@ -91,7 +101,17 @@ namespace Sanad.Controllers
             if (user == null) return NotFound("User not found");
 
             user.IsEmailConfirmed = true;
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SaveChangesAsync failed:");
+                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
+                return StatusCode(500, ex.Message);
+            }
+
 
             verificationTokens.Remove(userId);
 
@@ -170,7 +190,17 @@ namespace Sanad.Controllers
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
             verificationTokens.Remove(dto.UserId);
 
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SaveChangesAsync failed:");
+                Console.WriteLine(ex.ToString()); // هيوضح الاستثناء بالكامل
+                return StatusCode(500, ex.Message);
+            }
+
             return Ok("Password has been reset successfully");
         }
 
