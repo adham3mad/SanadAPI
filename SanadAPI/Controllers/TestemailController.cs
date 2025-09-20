@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using MimeKit;
-using MailKit.Net.Smtp;
-using MailKit.Security;
 using Microsoft.Extensions.Options;
-using Sanad.DTOs; 
+using Sanad.DTOs;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Sanad.Controllers
 {
@@ -23,19 +22,21 @@ namespace Sanad.Controllers
         {
             try
             {
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail));
-                message.To.Add(new MailboxAddress("Test", "test@example.com"));
-                message.Subject = "Test Email";
-                message.Body = new TextPart("plain") { Text = "Hello from Railway" };
+                var client = new SendGridClient(_emailSettings.ApiKey);
 
-                using var client = new SmtpClient();
-                await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.Port, SecureSocketOptions.StartTls);
-                await client.AuthenticateAsync(_emailSettings.Username, _emailSettings.Password);
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
+                var from = new EmailAddress(_emailSettings.SenderEmail, _emailSettings.SenderName);
+                var subject = "Test Email from Sanad";
+                var to = new EmailAddress("test@example.com", "Test User");
+                var plainTextContent = "Hello from Railway using SendGrid!";
+                var htmlContent = "<strong>Hello from Railway using SendGrid!</strong>";
 
-                return Ok("Email sent!");
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
+
+                if (response.IsSuccessStatusCode)
+                    return Ok("Email sent successfully via SendGrid!");
+                else
+                    return StatusCode((int)response.StatusCode, "SendGrid failed to send email.");
             }
             catch (Exception ex)
             {
