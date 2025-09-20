@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BCrypt.Net;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Sanad.DTOs;
 using Sanad.Models.Data;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Sanad.Controllers
 {
@@ -49,7 +53,7 @@ namespace Sanad.Controllers
 
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
-            var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
+            var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/?userId={user.Id}&token={token}";
 
             try
             {
@@ -115,6 +119,61 @@ namespace Sanad.Controllers
             }
         }
 
+        [HttpPost("forget-password")]
+        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO dto)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+            if (user == null) return NotFound("Email not found");
+
+            var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            verificationTokens[user.Id] = (token, DateTime.UtcNow.AddMinutes(15));
+
+            var resetLink = $"https://adham3mad.github.io/Reset-Password-Sanad?userId={user.Id}&token={token}";
+
+            try
+            {
+                await emailService.SendEmailAsync(
+                    user.Email,
+                    user.Name,
+                    "Password Reset Request",
+                    $@"
+                    <h2>Password Reset Request</h2>
+                    <p>We received a request to reset your password.</p>
+                    <p>Click the link below to reset your password:</p>
+                    <p><a href='{resetLink}' target='_blank'>Reset Password</a></p>
+                    <br/>
+                    <p><b>Note:</b> This link will expire in 15 minutes.</p>
+                    <p>If you didn't request this, please ignore this email.</p>"
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Email sending failed: {ex.Message}");
+            }
+
+            return Ok("Password reset link has been sent to your email (valid 15 minutes)");
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
+        {
+            if (!verificationTokens.TryGetValue(dto.UserId, out var tokenData))
+                return BadRequest("Invalid or expired token");
+
+            var (storedToken, expiry) = tokenData;
+            if (storedToken != dto.Token || DateTime.UtcNow > expiry)
+                return BadRequest("Invalid or expired token");
+
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == dto.UserId);
+            if (user == null) return NotFound("User not found");
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+            verificationTokens.Remove(dto.UserId);
+
+            await context.SaveChangesAsync();
+            return Ok("Password has been reset successfully");
+        }
+
         private string GenerateJwtToken(User user)
         {
             var claims = new[]
@@ -124,11 +183,8 @@ namespace Sanad.Controllers
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
-            var keyString = config["Jwt:Key"];
-            if (string.IsNullOrEmpty(keyString))
-                throw new InvalidOperationException("JWT Key missing in configuration");
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
+            var jwtKey = config["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is missing from configuration");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
