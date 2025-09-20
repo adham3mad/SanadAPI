@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Sanad.DTOs;
 using Sanad.Models.Data;
 using SanadAPI.DTOs;
-using SendGrid.Helpers.Mail;
-using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace SanadAPI.Controllers
@@ -20,14 +17,12 @@ namespace SanadAPI.Controllers
         private static Dictionary<Guid, (string Token, DateTime Expiry)> _verificationTokens = new();
         private readonly IEmailService emailService;
 
-
         public UsersController(DbEntity _context, IOptions<EmailSettings> _emailSettings, IEmailService _emailService)
         {
             context = _context;
             emailSettings = _emailSettings.Value;
             emailService = _emailService;
         }
-
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
@@ -41,6 +36,7 @@ namespace SanadAPI.Controllers
                     Name = u.Name,
                     Image = u.Image,
                     Email = u.Email,
+                    Role = u.Role,
                     Conversations = u.Conversations.Select(c => new ConversationDto
                     {
                         Id = c.Id,
@@ -62,8 +58,7 @@ namespace SanadAPI.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUser(Guid id)
-        {            
-
+        {
             var user = await context.Users
                 .Include(u => u.Conversations)
                 .ThenInclude(c => c.Messages)
@@ -94,7 +89,6 @@ namespace SanadAPI.Controllers
             };
         }
 
-
         [HttpPost]
         public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto dto)
         {
@@ -108,14 +102,14 @@ namespace SanadAPI.Controllers
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.PasswordHash),
                 Role = dto.Role,
-                IsEmailConfirmed = false 
+                IsEmailConfirmed = false
             };
 
             context.Users.Add(user);
             await context.SaveChangesAsync();
+
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            var expiry = DateTime.UtcNow.AddHours(24);
-            _verificationTokens[user.Id] = (token, expiry);
+            _verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
 
             var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
             await emailService.SendEmailAsync(
@@ -128,7 +122,7 @@ namespace SanadAPI.Controllers
                 <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
                 <br/>
                 <p>This link will expire in 24 hours.</p>"
-                    );
+            );
 
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, new UserDto
             {
@@ -141,8 +135,7 @@ namespace SanadAPI.Controllers
             });
         }
 
-
-
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, UpdateUserDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -159,23 +152,23 @@ namespace SanadAPI.Controllers
             if (!string.IsNullOrWhiteSpace(dto.Email) && dto.Email != user.Email)
             {
                 user.Email = dto.Email;
-                user.IsEmailConfirmed = false; 
-                var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-                var expiry = DateTime.UtcNow.AddHours(24);
-                _verificationTokens[user.Id] = (token, expiry);
+                user.IsEmailConfirmed = false;
 
-               var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/?userId={user.Id}&token={token}";
-               await emailService.SendEmailAsync(
-               user.Email,
-               user.Name,
-               "Verify your email",
-               $@"
-               <h2>Welcome {user.Name}</h2>
-               <p>Please verify your email by clicking the link below:</p>
-               <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
-               <br/>
-               <p>This link will expire in 24 hours.</p>"
-               );
+                var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+                _verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
+
+                var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
+                await emailService.SendEmailAsync(
+                    user.Email,
+                    user.Name,
+                    "Verify your email",
+                    $@"
+                    <h2>Welcome {user.Name}</h2>
+                    <p>Please verify your email by clicking the link below:</p>
+                    <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
+                    <br/>
+                    <p>This link will expire in 24 hours.</p>"
+                );
             }
 
             if (!string.IsNullOrWhiteSpace(dto.PasswordHash))
@@ -188,9 +181,6 @@ namespace SanadAPI.Controllers
             return NoContent();
         }
 
-
-
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
@@ -201,21 +191,28 @@ namespace SanadAPI.Controllers
 
             if (user == null) return NotFound();
 
-            context.Messages.RemoveRange(user.Conversations.SelectMany(c => c.Messages));
-            context.Conversations.RemoveRange(user.Conversations);
+            if (user.Conversations != null)
+                context.Messages.RemoveRange(user.Conversations.SelectMany(c => c.Messages));
+
+            if (user.Conversations != null)
+                context.Conversations.RemoveRange(user.Conversations);
+
             context.Users.Remove(user);
 
             try
             {
                 await context.SaveChangesAsync();
             }
-            catch (Exception ex){
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, $"Cannot delete user due to related data: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(500, ex.ToString());
             }
 
             return NoContent();
         }
-
-
     }
 }

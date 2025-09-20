@@ -46,8 +46,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -58,8 +66,7 @@
               "RelativeToolTip": "SanadAPI\\Services\\SendGridEmailService.cs",
               "ViewState": "AgIAAAkAAADgMjMzM5M0wB4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T11:40:25.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-20T11:40:25.295Z"
             },
             {
               "$type": "Document",
@@ -71,8 +78,7 @@
               "RelativeToolTip": "SanadAPI\\Services\\IEmailService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T11:40:08.824Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-20T11:40:08.824Z"
             },
             {
               "$type": "Document",
@@ -80,20 +86,12 @@
               "Title": "UsersController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\UsersController.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Controllers\\UsersController.cs*",
-              "RelativeToolTip": "SanadAPI\\Controllers\\UsersController.cs*",
-              "ViewState": "AgIAAMAAAAAAsJmZmZkBwLMAAAAAAAAAAAAAAA==",
+              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "SanadAPI\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAM4AAAAAmJmZmVkvwNoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-20T11:21:04.904Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Document",
@@ -103,10 +101,9 @@
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\AuthController.cs",
               "ToolTip": "F:\\SanadAPI\\SanadAPI\\Controllers\\AuthController.cs",
               "RelativeToolTip": "SanadAPI\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAA8AAAAAZWZmZmYQwEMAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAQwLsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T16:07:05.238Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-19T16:07:05.238Z"
             },
             {
               "$type": "Document",
@@ -130,8 +127,7 @@
               "RelativeToolTip": "SanadAPI\\Program.cs",
               "ViewState": "AgIAABYAAAC0mJmZmZkcwCUAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T15:32:22.466Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-19T15:32:22.466Z"
             },
             {
               "$type": "Document",
@@ -151,12 +147,11 @@
               "Title": "ConversationsController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\ConversationsController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\ConversationsController.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Controllers\\ConversationsController.cs*",
-              "RelativeToolTip": "SanadAPI\\Controllers\\ConversationsController.cs*",
+              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Controllers\\ConversationsController.cs",
+              "RelativeToolTip": "SanadAPI\\Controllers\\ConversationsController.cs",
               "ViewState": "AgIAACcAAAAAlpmZmZkawBYAAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T21:31:30.902Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-19T21:31:30.902Z"
             },
             {
               "$type": "Document",

@@ -1,20 +1,14 @@
-﻿using BCrypt.Net;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Sanad.DTOs;
 using Sanad.Models.Data;
-using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Sanad.Controllers
 {
@@ -57,10 +51,9 @@ namespace Sanad.Controllers
             await context.SaveChangesAsync();
 
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            var expiry = DateTime.UtcNow.AddHours(24);
-            verificationTokens[user.Id] = (token, expiry);
+            verificationTokens[user.Id] = (token, DateTime.UtcNow.AddHours(24));
 
-            var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/?userId={user.Id}&token={token}";
+            var verificationLink = $"https://your-backend-domain.com/api/auth/verify-email?userId={user.Id}&token={token}";
 
             await emailService.SendEmailAsync(
                 user.Email,
@@ -119,7 +112,6 @@ namespace Sanad.Controllers
             }
         }
 
-
         [HttpPost("forget-password")]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO dto)
         {
@@ -127,10 +119,9 @@ namespace Sanad.Controllers
             if (user == null) return NotFound("Email not found");
 
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            var expiry = DateTime.UtcNow.AddMinutes(15);
-            verificationTokens[user.Id] = (token, expiry);
+            verificationTokens[user.Id] = (token, DateTime.UtcNow.AddMinutes(15));
 
-            var resetLink = $"https://adham3mad.github.io/Reset-Password-Sanad?userId={user.Id}&token={token}";
+            var resetLink = $"https://your-frontend-domain.com/reset-password?userId={user.Id}&token={token}";
 
             await emailService.SendEmailAsync(
                 user.Email,
@@ -186,7 +177,7 @@ namespace Sanad.Controllers
                 issuer: config["Jwt:Issuer"],
                 audience: config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(2),
+                expires: DateTime.UtcNow.AddHours(2),
                 signingCredentials: creds
             );
 
