@@ -3,52 +3,36 @@
   "WorkspaceRootPath": "F:\\SanadAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\controllers\\conversationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\controllers\\conversationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\sanadapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\sanadapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\dtos\\authdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\migrations\\20250919221513_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\migrations\\20250919221513_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\controllers\\conversationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\controllers\\conversationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\dtos\\messagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\dtos\\messagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\dtos\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\services\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\services\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|f:\\sanadapi\\sanadapi\\models\\data\\conversation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04E8C024-D2A2-4ED0-B355-F12D49BC4C10}|SanadAPI\\SanadAPI.csproj|solutionrelative:sanadapi\\models\\data\\conversation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,8 +42,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SanadAPI",
+              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
+              "RelativeDocumentMoniker": "SanadAPI\\SanadAPI.csproj",
+              "ToolTip": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
+              "RelativeToolTip": "SanadAPI\\SanadAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-20T00:51:13.977Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -67,97 +64,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SanadAPI",
-              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
-              "RelativeDocumentMoniker": "SanadAPI\\SanadAPI.csproj",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\SanadAPI.csproj",
-              "RelativeToolTip": "SanadAPI\\SanadAPI.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-09-19T23:53:51.077Z",
+              "Title": "AuthDto.cs",
+              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\DTOs\\AuthDto.cs",
+              "RelativeDocumentMoniker": "SanadAPI\\DTOs\\AuthDto.cs",
+              "ToolTip": "F:\\SanadAPI\\SanadAPI\\DTOs\\AuthDto.cs",
+              "RelativeToolTip": "SanadAPI\\DTOs\\AuthDto.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAcwGAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T00:38:11.128Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Services\\TokenService.cs",
-              "RelativeDocumentMoniker": "SanadAPI\\Services\\TokenService.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Services\\TokenService.cs",
-              "RelativeToolTip": "SanadAPI\\Services\\TokenService.cs",
-              "ViewState": "AgIAAAwAAAAAJDMzMzPjvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T21:31:01.05Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ITokenService.cs",
-              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Services\\ITokenService.cs",
-              "RelativeDocumentMoniker": "SanadAPI\\Services\\ITokenService.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Services\\ITokenService.cs",
-              "RelativeToolTip": "SanadAPI\\Services\\ITokenService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T21:30:58.413Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Conversation.cs",
-              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Models\\Data\\Conversation.cs",
-              "RelativeDocumentMoniker": "SanadAPI\\Models\\Data\\Conversation.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Models\\Data\\Conversation.cs",
-              "RelativeToolTip": "SanadAPI\\Models\\Data\\Conversation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T21:30:52.284Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Program.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Program.cs",
               "ToolTip": "F:\\SanadAPI\\SanadAPI\\Program.cs",
               "RelativeToolTip": "SanadAPI\\Program.cs",
-              "ViewState": "AgIAAEUAAAAA8v/////5v0YAAAALAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAWGZmZmbWvyUAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T15:32:22.466Z"
+              "WhenOpened": "2025-09-19T15:32:22.466Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\appsettings.json",
               "RelativeDocumentMoniker": "SanadAPI\\appsettings.json",
               "ToolTip": "F:\\SanadAPI\\SanadAPI\\appsettings.json",
               "RelativeToolTip": "SanadAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAMzMzMzMLwBYAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-19T21:19:35.157Z"
+              "WhenOpened": "2025-09-19T21:19:35.157Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "AuthController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\AuthController.cs",
               "ToolTip": "F:\\SanadAPI\\SanadAPI\\Controllers\\AuthController.cs",
               "RelativeToolTip": "SanadAPI\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAAsAAACAMzMzMzMLwBsAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAADAmJmZmZkkwEIAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-19T16:07:05.238Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "ConversationsController.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Controllers\\ConversationsController.cs",
               "RelativeDocumentMoniker": "SanadAPI\\Controllers\\ConversationsController.cs",
@@ -170,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "UserDto.cs",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\DTOs\\UserDto.cs",
               "RelativeDocumentMoniker": "SanadAPI\\DTOs\\UserDto.cs",
@@ -178,23 +136,12 @@
               "RelativeToolTip": "SanadAPI\\DTOs\\UserDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T21:31:13.158Z"
+              "WhenOpened": "2025-09-19T21:31:13.158Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MessageDto.cs",
-              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\DTOs\\MessageDto.cs",
-              "RelativeDocumentMoniker": "SanadAPI\\DTOs\\MessageDto.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\DTOs\\MessageDto.cs",
-              "RelativeToolTip": "SanadAPI\\DTOs\\MessageDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T21:31:15.525Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\appsettings.Development.json",
               "RelativeDocumentMoniker": "SanadAPI\\appsettings.Development.json",
@@ -202,19 +149,12 @@
               "RelativeToolTip": "SanadAPI\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-09-19T21:44:58.037Z"
+              "WhenOpened": "2025-09-19T21:44:58.037Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "20250919221513_init.cs",
-              "DocumentMoniker": "F:\\SanadAPI\\SanadAPI\\Migrations\\20250919221513_init.cs",
-              "RelativeDocumentMoniker": "SanadAPI\\Migrations\\20250919221513_init.cs",
-              "ToolTip": "F:\\SanadAPI\\SanadAPI\\Migrations\\20250919221513_init.cs",
-              "RelativeToolTip": "SanadAPI\\Migrations\\20250919221513_init.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T22:15:16.298Z"
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             }
           ]
         }

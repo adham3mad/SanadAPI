@@ -1,17 +1,17 @@
 ﻿using BCrypt.Net;
-using MailKit.Net.Smtp;
-using MailKit.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MimeKit;
 using Sanad.DTOs;
 using Sanad.Models.Data;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -35,7 +35,6 @@ namespace Sanad.Controllers
             emailSettings = _emailSettings.Value;
         }
 
-        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
@@ -60,33 +59,23 @@ namespace Sanad.Controllers
             var expiry = DateTime.UtcNow.AddHours(24);
             _verificationTokens[user.Id] = (token, expiry);
 
-            var verificationLink = $"https://your-frontend.com/verify-email?userId={user.Id}&token={token}";
+            var verificationLink = $"https://adham3mad.github.io/Confirm-Email-Address/{user.Id}&token={token}";
 
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(emailSettings.SenderName, emailSettings.SenderEmail));
-            message.To.Add(new MailboxAddress(user.Name, user.Email));
-            message.Subject = "Verify your email";
-
-            message.Body = new TextPart("html")
-            {
-                Text = $@"
+            await SendEmailAsync(
+                user.Email,
+                user.Name,
+                "Verify your email",
+                $@"
                 <h2>Welcome {user.Name}</h2>
                 <p>Please verify your email by clicking the link below:</p>
                 <p><a href='{verificationLink}' target='_blank'>Verify Email</a></p>
                 <br/>
                 <p>This link will expire in 24 hours.</p>"
-            };
-
-            using var client = new SmtpClient();
-            await client.ConnectAsync(emailSettings.SmtpServer, emailSettings.Port, SecureSocketOptions.StartTls);
-            await client.AuthenticateAsync(emailSettings.Username, emailSettings.Password);
-            await client.SendAsync(message);
-            await client.DisconnectAsync(true);
+            );
 
             return Ok(new { message = "User registered successfully. Please check your email to verify your account." });
         }
 
-        
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmail(Guid userId, string token)
         {
@@ -108,7 +97,6 @@ namespace Sanad.Controllers
             return Ok("Email verified successfully! You can now log in.");
         }
 
-        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
@@ -123,7 +111,6 @@ namespace Sanad.Controllers
             return Ok(new { token });
         }
 
-        
         [HttpPost("forget-password")]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO dto)
         {
@@ -133,16 +120,14 @@ namespace Sanad.Controllers
             var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             var expiry = DateTime.UtcNow.AddMinutes(15);
             _verificationTokens[user.Id] = (token, expiry);
+
             var resetLink = $"https://adham3mad.github.io/Reset-Password-Sanad?userId={user.Id}&token={token}";
 
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(emailSettings.SenderName, emailSettings.SenderEmail));
-            message.To.Add(new MailboxAddress(user.Name, user.Email));
-            message.Subject = "Password Reset Request";
-
-            message.Body = new TextPart("html")
-            {
-                Text = $@"
+            await SendEmailAsync(
+                user.Email,
+                user.Name,
+                "Password Reset Request",
+                $@"
                 <h2>Password Reset Request</h2>
                 <p>We received a request to reset your password.</p>
                 <p>Click the link below to reset your password:</p>
@@ -150,17 +135,10 @@ namespace Sanad.Controllers
                 <br/>
                 <p><b>Note:</b> This link will expire in 15 minutes.</p>
                 <p>If you didn't request this, please ignore this email.</p>"
-            };
-
-            using var client = new SmtpClient();
-            await client.ConnectAsync(emailSettings.SmtpServer, emailSettings.Port, SecureSocketOptions.StartTls);
-            await client.AuthenticateAsync(emailSettings.Username, emailSettings.Password);
-            await client.SendAsync(message);
-            await client.DisconnectAsync(true);
+            );
 
             return Ok("Password reset link has been sent to your email (valid 15 minutes)");
         }
-
 
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO dto)
@@ -181,7 +159,6 @@ namespace Sanad.Controllers
             await context.SaveChangesAsync();
             return Ok("Password has been reset successfully");
         }
-
 
         private string GenerateJwtToken(User user)
         {
@@ -205,6 +182,16 @@ namespace Sanad.Controllers
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private async Task SendEmailAsync(string toEmail, string toName, string subject, string htmlContent)
+        {
+            var client = new SendGridClient(emailSettings.ApiKey);
+            var from = new EmailAddress(emailSettings.SenderEmail, emailSettings.SenderName);
+            var to = new EmailAddress(toEmail, toName);
+
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent: "", htmlContent: htmlContent);
+            await client.SendEmailAsync(msg);
         }
     }
 }

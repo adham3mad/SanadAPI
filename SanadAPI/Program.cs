@@ -35,12 +35,10 @@ namespace SanadAPI
                 });
 
             builder.Services.Configure<EmailSettings>(
-                builder.Configuration.GetSection("EmailSettings"));
+            builder.Configuration.GetSection("SendGrid"));
 
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
-
-            // Add CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -95,7 +93,7 @@ namespace SanadAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sanad API v1");
             });
 
-            //app.UseHttpsRedirection();
+
 
             app.UseAuthentication();
             app.UseAuthorization();
